@@ -1,0 +1,34 @@
+.issueItem {
+  background-color: white;
+  width: 80%;
+  border: 1px solid grey;
+  padding: 17px;
+  border-radius: 15px;
+
+  a {
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+
+    &:hover {
+      border-bottom: 1px solid black;
+    }
+  }
+
+  h3 {
+    color: #323232;
+    font-weight: 500;
+  }
+
+  h4 {
+    font-weight: 500;
+    color: #7b8085;
+    padding: 3px 0;
+  }
+}
+
+.userRefWrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

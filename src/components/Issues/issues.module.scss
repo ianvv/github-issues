@@ -1,0 +1,74 @@
+.errorWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px;
+
+  h2 {
+    font-weight: 500;
+  }
+}
+
+.repoInfo {
+  margin-bottom: 20px;
+  color: #5971e5;
+  font-size: 18px;
+  display: flex;
+  gap: 7px;
+
+  a {
+    color: #5971e5;
+
+    &:hover {
+      border-bottom: 1px solid #5971e5;
+    }
+  }
+
+  span {
+
+    margin-left: 10px;
+    color: black;
+
+    .starIcon {
+      color: goldenrod;
+    }
+  }
+}
+
+
+.issuesWrapper {
+  flex-direction: row;
+  height: 100%;
+  gap: 50px;
+  display: flex;
+  justify-content: space-between;
+
+  .issuesContainer {
+    width: 100%;
+
+    .noIssuesMessage {
+      ul {
+        h3 {
+          padding: 30vh 0;
+          text-align: center;
+        }
+      }
+    }
+
+    ul {
+      padding: 15px 0;
+      min-height: 90%;
+      background-color: #ced4da;
+      border: 1px solid black;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    h2 {
+      padding-bottom: 20px;
+      text-align: center;
+    }
+  }
+}
