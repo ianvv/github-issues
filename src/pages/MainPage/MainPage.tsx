@@ -4,10 +4,10 @@ import Issues from "../../components/Issues/Issues";
 
 const MainPage = () => {
   return (
-    <>
+    <main>
       <Search />
       <Issues />
-    </>
+    </main>
   );
 };
 

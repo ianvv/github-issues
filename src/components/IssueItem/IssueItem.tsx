@@ -10,7 +10,7 @@ const IssueItem: React.FC<IIssueItemProps> = ({ issue }) => {
   const { id, title, number, created_at, user, comments, html_url } = issue;
 
   return (
-    <article key={id} className={s.issueItem}>
+    <div key={id} className={s.issueItem}>
       <a href={html_url} target="_blank" rel="noopener noreferrer">
         {title}
       </a>
@@ -28,7 +28,7 @@ const IssueItem: React.FC<IIssueItemProps> = ({ issue }) => {
         </a>
         <h4>{`| Comments: ${comments}`}</h4>
       </div>
-    </article>
+    </div>
   );
 };
 

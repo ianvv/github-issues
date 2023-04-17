@@ -51,7 +51,11 @@ const Search: React.FC = () => {
         />
         {repoUrl && <FaTimes className={s.clearIcon} onClick={handleReset} />}
       </div>
-      <button type="submit" className={s.searchButton}>
+      <button
+        type="submit"
+        className={s.searchButton}
+        disabled={repoUrl === ""}
+      >
         <FaSearch className={s.searchIcon} />
       </button>
     </form>

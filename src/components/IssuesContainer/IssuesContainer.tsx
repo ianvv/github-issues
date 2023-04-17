@@ -12,22 +12,35 @@ import { IIssue } from "../../redux/commonDeclaration";
 interface IIssuesContainerProps {
   arr: IIssue[];
   title: string;
+  dispatchCallback: () => void;
 }
 
-const IssuesContainer: React.FC<IIssuesContainerProps> = ({ arr, title }) => {
+const IssuesContainer: React.FC<IIssuesContainerProps> = ({
+  arr,
+  title,
+  dispatchCallback,
+}) => {
   const [issues, updateIssues] = useState(arr);
 
   useEffect(() => {
     updateIssues(arr);
   }, [arr]);
 
-  function handleOnDragEnd(result: DropResult) {
+  const handleOnDragEnd = (result: DropResult) => {
     if (!result.destination) return;
     const items = Array.from(issues);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     updateIssues(items);
-  }
+  };
+
+  const loadMoreHandleButton = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const savedScrollPosition = window.scrollY;
+    dispatchCallback();
+    // dispatch(setPage());
+    window.scrollTo(10, savedScrollPosition);
+  };
 
   return (
     <div className={s.issuesContainer}>
@@ -68,6 +81,7 @@ const IssuesContainer: React.FC<IIssuesContainerProps> = ({ arr, title }) => {
           )}
         </Droppable>
       </DragDropContext>
+      <button onClick={loadMoreHandleButton}>Fffff</button>
     </div>
   );
 };
