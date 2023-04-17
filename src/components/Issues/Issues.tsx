@@ -2,21 +2,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { AiFillStar } from "react-icons/ai";
 import { BiError } from "react-icons/bi";
-import {
-  githubIssuesSelector,
-  setClosedIssuesPage,
-  setInProgressIssuesPage,
-  setOpenedIssuesPage,
-} from "../../redux/slices/issuesSlice";
+import { githubIssuesSelector } from "../../redux/slices/issuesSlice";
 import Loader from "../Loader/Loader";
 import IssuesContainer from "../IssuesContainer/IssuesContainer";
 import { EStatus } from "../../redux/commonDeclaration";
 import s from "./issues.module.scss";
-import { useAppDispatch } from "../../redux/store";
-
-// I didn't know what you wanted to receive in "In Progress Issues"
-// so here it works correctly when an issue has the label "In progress",
-// for better experience you can use my repo "https://github.com/ianvv/lyric-finder" with random issues
 
 const Issues = () => {
   const {
@@ -29,8 +19,6 @@ const Issues = () => {
     errorMessage,
     status,
   } = useSelector(githubIssuesSelector);
-
-  const dispatch = useAppDispatch();
 
   if (status === EStatus.LOADING) {
     return <Loader />;
@@ -51,14 +39,16 @@ const Issues = () => {
         </div>
       ) : (
         <div>
-          {repoOwner === "" && repoName === "" ? null : (
+          {repoOwner === "" && repoName === "" ? (
+            <></>
+          ) : (
             <div className={s.repoInfo}>
               <a
                 href={`https://github.com/${repoOwner}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {repoOwner}
+                {repoOwner && repoOwner}
               </a>{" "}
               {`>`}
               <a
@@ -66,33 +56,23 @@ const Issues = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {repoName}
+                {repoName && repoName}
               </a>
-              <span>
-                {<AiFillStar className={s.starIcon} />}
-                {stargazersCount} stars
-              </span>
+              {stargazersCount && (
+                <span>
+                  <AiFillStar className={s.starIcon} />
+                  {stargazersCount} stars
+                </span>
+              )}
             </div>
           )}
           {status === EStatus.NO_SEARCH ? (
             <div>Enter the gitHub repository to find out about issues...</div>
           ) : (
             <div className={s.issuesWrapper}>
-              <IssuesContainer
-                arr={openedIssues}
-                title="ToDo"
-                dispatchCallback={() => dispatch(setOpenedIssuesPage())}
-              />
-              <IssuesContainer
-                arr={inProgressIssues}
-                title="In Progress"
-                dispatchCallback={() => dispatch(setInProgressIssuesPage())}
-              />
-              <IssuesContainer
-                arr={closedIssues}
-                title="Done"
-                dispatchCallback={() => dispatch(setClosedIssuesPage())}
-              />
+              <IssuesContainer arr={openedIssues} title="ToDo" />
+              <IssuesContainer arr={inProgressIssues} title="In Progress" />
+              <IssuesContainer arr={closedIssues} title="Done" />
             </div>
           )}
         </div>

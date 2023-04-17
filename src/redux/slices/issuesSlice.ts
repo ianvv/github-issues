@@ -35,9 +35,6 @@ export const fetchSearchedIssues = createAsyncThunk<
       axios.get(`${githubApiUrl}${repoOwner}/${repoName}`),
     ]);
 
-  console.log("data");
-  console.log(toDoIssues);
-
   const inProgressIssuesData = inProgressIssues.data;
   const toDoIssuesData = toDoIssues.data;
   const closedIssuesData = closedIssues.data;
@@ -56,9 +53,6 @@ interface IGithubIssuesSliceState {
   stargazersCount: number | null;
   errorMessage: string | undefined;
   status: EStatus;
-  openedIssuesPage: number;
-  closedIssuesPage: number;
-  inProgressIssuesPage: number;
 }
 
 const initialState: IGithubIssuesSliceState = {
@@ -71,9 +65,6 @@ const initialState: IGithubIssuesSliceState = {
   stargazersCount: null,
   errorMessage: "",
   status: EStatus.NO_SEARCH,
-  openedIssuesPage: 1,
-  closedIssuesPage: 1,
-  inProgressIssuesPage: 1,
 };
 
 const githubIssuesSlice = createSlice({
@@ -91,15 +82,6 @@ const githubIssuesSlice = createSlice({
     },
     setErrorMessage(state, action: PayloadAction<string>) {
       state.errorMessage = action.payload;
-    },
-    setOpenedIssuesPage(state) {
-      state.openedIssuesPage = state.openedIssuesPage + 1;
-    },
-    setClosedIssuesPage(state) {
-      state.closedIssuesPage = state.closedIssuesPage + 1;
-    },
-    setInProgressIssuesPage(state) {
-      state.inProgressIssuesPage = state.inProgressIssuesPage + 1;
     },
   },
   extraReducers: (builder) => {
@@ -131,13 +113,7 @@ const githubIssuesSlice = createSlice({
 
 export const githubIssuesSelector = (state: RootState) => state.issues;
 
-export const {
-  setRepoOwner,
-  setRepoName,
-  setErrorMessage,
-  setOpenedIssuesPage,
-  setClosedIssuesPage,
-  setInProgressIssuesPage,
-} = githubIssuesSlice.actions;
+export const { setRepoOwner, setRepoName, setErrorMessage } =
+  githubIssuesSlice.actions;
 
 export default githubIssuesSlice.reducer;
