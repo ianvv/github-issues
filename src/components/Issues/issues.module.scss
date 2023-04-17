@@ -42,33 +42,4 @@
   gap: 50px;
   display: flex;
   justify-content: space-between;
-
-  .issuesContainer {
-    width: 100%;
-
-    .noIssuesMessage {
-      ul {
-        h3 {
-          padding: 30vh 0;
-          text-align: center;
-        }
-      }
-    }
-
-    ul {
-      padding: 15px 0;
-      min-height: 90%;
-      background-color: #ced4da;
-      border: 1px solid black;
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    h2 {
-      padding-bottom: 20px;
-      text-align: center;
-    }
-  }
 }

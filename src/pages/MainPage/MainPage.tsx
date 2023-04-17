@@ -1,6 +1,6 @@
 import React from "react";
-import Issues from "../../components/Issues/Issues";
 import Search from "../../components/Search/Search";
+import Issues from "../../components/Issues/Issues";
 
 const MainPage = () => {
   return (
