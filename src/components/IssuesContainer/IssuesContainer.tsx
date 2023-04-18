@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   DragDropContext,
   Draggable,
@@ -6,11 +7,10 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import IssueItem from "../IssueItem/IssueItem";
-import s from "./issuesContainer.module.scss";
-import { IIssue } from "../../redux/commonDeclaration";
-import { getIssuesOrder, setIssuesOrder } from "../../packages/storage";
-import { useSelector } from "react-redux";
+import { setIssuesOrder } from "../../packages/storage";
 import { githubIssuesSelector } from "../../redux/slices/issuesSlice";
+import { IIssue } from "../../redux/commonDeclaration";
+import s from "./issuesContainer.module.scss";
 
 interface IIssuesContainerProps {
   arr: IIssue[];
@@ -33,7 +33,6 @@ const IssuesContainer: React.FC<IIssuesContainerProps> = ({ arr, title }) => {
     items.splice(result.destination.index, 0, reorderedItem);
     setIssuesOrder(items, `${repoOwner}/${repoName}/${title}`);
     updateIssues(items);
-    // getIssuesOrder(title);
   };
 
   return (

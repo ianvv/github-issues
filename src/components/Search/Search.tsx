@@ -1,13 +1,13 @@
 import React, { useState } from "react";
+import { useAppDispatch } from "../../redux/store";
+import { FaSearch, FaTimes } from "react-icons/fa";
 import {
   fetchSearchedIssues,
   setErrorMessage,
   setRepoName,
   setRepoOwner,
 } from "../../redux/slices/issuesSlice";
-import { FaSearch, FaTimes } from "react-icons/fa";
 import s from "./search.module.scss";
-import { useAppDispatch } from "../../redux/store";
 
 const Search: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +21,6 @@ const Search: React.FC = () => {
       if (match.length === 3) {
         dispatch(setRepoOwner(match[1]));
         dispatch(setRepoName(match[2]));
-        // if () {}
         dispatch(
           fetchSearchedIssues({
             repoOwner: String(match[1]),
