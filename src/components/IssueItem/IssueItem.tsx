@@ -15,7 +15,7 @@ const IssueItem: React.FC<IIssueItemProps> = ({ issue }) => {
         {title ? title : "title is undefined"}
       </a>
       <h4>
-        {number && `#${number}`}
+        {`#${number}`}
         {created_at && " opened "}
         {created_at &&
           Math.floor(
@@ -28,7 +28,7 @@ const IssueItem: React.FC<IIssueItemProps> = ({ issue }) => {
         <a href={user?.html_url} target="_blank" rel="noopener noreferrer">
           {user?.login}
         </a>
-        <h4>{comments && `| Comments: ${comments}`}</h4>
+        <h4>{`| Comments: ${comments}`}</h4>
       </div>
     </div>
   );

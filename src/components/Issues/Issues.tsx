@@ -58,12 +58,10 @@ const Issues = () => {
               >
                 {repoName && repoName}
               </a>
-              {stargazersCount && (
-                <span>
-                  <AiFillStar className={s.starIcon} />
-                  {stargazersCount} stars
-                </span>
-              )}
+              <span>
+                <AiFillStar className={s.starIcon} />
+                {stargazersCount} stars
+              </span>
             </div>
           )}
           {status === EStatus.NO_SEARCH ? (

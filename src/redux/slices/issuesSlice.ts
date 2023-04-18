@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
 import { EStatus, IIssue } from "../commonDeclaration";
+import { getIssuesOrder } from "../../packages/storage";
 
 interface IFetchSearchedIssuesParams {
   repoOwner: string;
@@ -28,9 +29,7 @@ export const fetchSearchedIssues = createAsyncThunk<
       axios.get(
         `${githubApiUrl}${repoOwner}/${repoName}/issues?state=open&labels=Status%3A%20Unconfirmed`
       ),
-      axios.get(
-        `${githubApiUrl}${repoOwner}/${repoName}/issues?state=open&per_page=12&page=2`
-      ),
+      axios.get(`${githubApiUrl}${repoOwner}/${repoName}/issues?state=open`),
       axios.get(`${githubApiUrl}${repoOwner}/${repoName}/issues?state=closed`),
       axios.get(`${githubApiUrl}${repoOwner}/${repoName}`),
     ]);
@@ -56,7 +55,7 @@ interface IGithubIssuesSliceState {
 }
 
 const initialState: IGithubIssuesSliceState = {
-  openedIssues: [] as IIssue[],
+  openedIssues: [],
   closedIssues: [],
   inProgressIssues: [],
   repoOwner: "",
@@ -95,9 +94,26 @@ const githubIssuesSlice = createSlice({
     builder.addCase(fetchSearchedIssues.fulfilled, (state, action) => {
       state.errorMessage = "";
       state.stargazersCount = action.payload.stargazers;
-      state.inProgressIssues = action.payload.inProgressIssuesData;
-      state.openedIssues = action.payload.toDoIssuesData;
-      state.closedIssues = action.payload.closedIssuesData;
+
+      const getIssuesCallback = (title: string) => {
+        return getIssuesOrder(`${state.repoOwner}/${state.repoName}/${title}`);
+      };
+
+      state.openedIssues =
+        getIssuesCallback("ToDo").length === 0
+          ? action.payload.toDoIssuesData
+          : getIssuesCallback("ToDo");
+
+      state.inProgressIssues =
+        getIssuesCallback("In Progress").length === 0
+          ? action.payload.toDoIssuesData
+          : getIssuesCallback("In Progress");
+
+      state.closedIssues =
+        getIssuesCallback("Done").length === 0
+          ? action.payload.toDoIssuesData
+          : getIssuesCallback("Done");
+
       state.status = EStatus.SUCCESS;
     });
 

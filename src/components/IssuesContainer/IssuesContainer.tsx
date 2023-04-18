@@ -8,6 +8,9 @@ import {
 import IssueItem from "../IssueItem/IssueItem";
 import s from "./issuesContainer.module.scss";
 import { IIssue } from "../../redux/commonDeclaration";
+import { getIssuesOrder, setIssuesOrder } from "../../packages/storage";
+import { useSelector } from "react-redux";
+import { githubIssuesSelector } from "../../redux/slices/issuesSlice";
 
 interface IIssuesContainerProps {
   arr: IIssue[];
@@ -16,6 +19,8 @@ interface IIssuesContainerProps {
 
 const IssuesContainer: React.FC<IIssuesContainerProps> = ({ arr, title }) => {
   const [issues, updateIssues] = useState(arr);
+
+  const { repoOwner, repoName } = useSelector(githubIssuesSelector);
 
   useEffect(() => {
     updateIssues(arr);
@@ -26,7 +31,9 @@ const IssuesContainer: React.FC<IIssuesContainerProps> = ({ arr, title }) => {
     const items = Array.from(issues);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
+    setIssuesOrder(items, `${repoOwner}/${repoName}/${title}`);
     updateIssues(items);
+    // getIssuesOrder(title);
   };
 
   return (

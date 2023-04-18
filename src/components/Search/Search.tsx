@@ -21,6 +21,7 @@ const Search: React.FC = () => {
       if (match.length === 3) {
         dispatch(setRepoOwner(match[1]));
         dispatch(setRepoName(match[2]));
+        // if () {}
         dispatch(
           fetchSearchedIssues({
             repoOwner: String(match[1]),
