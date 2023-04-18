@@ -29,7 +29,9 @@ export const fetchSearchedIssues = createAsyncThunk<
       axios.get(
         `${githubApiUrl}${repoOwner}/${repoName}/issues?state=open&labels=Status%3A%20Unconfirmed`
       ),
-      axios.get(`${githubApiUrl}${repoOwner}/${repoName}/issues?state=open`),
+      axios.get(
+        `${githubApiUrl}${repoOwner}/${repoName}/issues?state=open&-labels=Status%3A%20Unconfirmed`
+      ),
       axios.get(`${githubApiUrl}${repoOwner}/${repoName}/issues?state=closed`),
       axios.get(`${githubApiUrl}${repoOwner}/${repoName}`),
     ]);
