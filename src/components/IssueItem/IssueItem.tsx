@@ -26,9 +26,9 @@ const IssueItem: React.FC<IIssueItemProps> = ({ issue }) => {
       </h4>
       <div className={s.userRefWrapper}>
         <a href={user?.html_url} target="_blank" rel="noopener noreferrer">
-          {user?.login}
+          {user ? user.login : "user is undefined"}
         </a>
-        <h4>{`| Comments: ${comments}`}</h4>
+        <h4>{`| Comments: ${comments ? comments : "undefined"}`}</h4>
       </div>
     </div>
   );
