@@ -24,9 +24,13 @@ const Issues = () => {
     return <Loader />;
   }
 
+  const isError = errorMessage !== "";
+  const isRepoEmpty = repoOwner === "" && repoName === "";
+  const isNoSearch = status === EStatus.NO_SEARCH;
+
   return (
     <>
-      {errorMessage !== "" ? (
+      {isError ? (
         <div className={s.errorWrapper}>
           <h2>
             {errorMessage === "Request failed with status code 404"
@@ -39,7 +43,7 @@ const Issues = () => {
         </div>
       ) : (
         <div>
-          {repoOwner === "" && repoName === "" ? (
+          {isRepoEmpty ? (
             <></>
           ) : (
             <div className={s.repoInfo}>
@@ -64,7 +68,7 @@ const Issues = () => {
               </span>
             </div>
           )}
-          {status === EStatus.NO_SEARCH ? (
+          {isNoSearch ? (
             <div>Enter the gitHub repository to find out about issues...</div>
           ) : (
             <div className={s.issuesWrapper}>
